@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./styles/reset.css";
+import AuthContext from "./contexts/AuthContext";
+import { useState } from "react";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Tests from "./pages/Tests/index";
 
-function App() {
+export default function App() {
+  const persistedtoken = localStorage.getItem("token");
+
+  const [token, setToken] = useState(persistedtoken);
+  const [tab, setTab] = useState(0);
+
+  function setAndPersistToken(token) {
+    setToken(token);
+    localStorage.setItem("token", token);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider
+      value={{
+        token,
+        setToken,
+        setAndPersistToken,
+        tab,
+        setTab
+      }}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/tests/:tab" element={<Tests />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthContext.Provider>
   );
 }
-
-export default App;
