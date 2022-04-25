@@ -18,7 +18,6 @@ export default function FilterTab(){
     const handleChange = (event, newValue) => {
         setTab(newValue);
         navigate(`/tests/${hashTab[newValue]}`)
-        console.log(tab)
     };
 
     return (
@@ -26,7 +25,7 @@ export default function FilterTab(){
             <Tabs value={tab} onChange={handleChange} centered>
                 <Tab label="Subjects" />
                 <Tab label="Instructors" />
-                <Tab label="Add" />
+                {/* <Tab label="Add" /> */}
             </Tabs>
         </Box>
     )

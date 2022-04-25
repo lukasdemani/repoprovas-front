@@ -74,7 +74,7 @@ export default function TestsBySubjects() {
           <AccordionDetails>
             {subjects.map((subject)=> (
 //------------------------------------------------------------
-                <Accordion expanded={expandedSubject === subject.id+term.id} onChange={handleChangeSubject(subject.id+term.id)}>
+                <Accordion expanded={expandedSubject === subject.id} onChange={handleChangeSubject(subject.id)}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1bh-content"

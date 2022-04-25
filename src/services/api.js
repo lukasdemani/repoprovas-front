@@ -62,8 +62,20 @@ function getSubjectsByTerms(termId) {
 }
 
 function getTestsBySubject(subjectId) {
-  console.log(subjectId)
   const promise = axios.get(`${BASE_URL}/subjects/${subjectId}/tests`);
+
+  return promise;
+}
+
+function getInstructors(token){
+  const config = createConfig(token);
+  const promise = axios.get(`${BASE_URL}/teachers`, config);
+
+  return promise;
+}
+
+function getTestsByInstructor(instructorId){
+  const promise = axios.get(`${BASE_URL}/teachers/${instructorId}/tests`);
 
   return promise;
 }
@@ -79,7 +91,9 @@ const api = {
   getTerms,
   getSubjects,
   getSubjectsByTerms,
-  getTestsBySubject
+  getTestsBySubject,
+  getInstructors,
+  getTestsByInstructor
 }
 
 export default api;

@@ -28,27 +28,24 @@ export default function TestsByInstructors() {
       console.log(error)
     })
 
-    const promise2 = api.getTests(token);
-    promise2.then((response) => {
-      setTests(response.data);
-      
-    })
-    promise2.catch((error) => {
-      console.log(error)
-    })
-
   }, [])
-
-  console.log(subjects)
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+    const promise = api.getTestsByInstructor(panel);
+
+    promise.then((response) => {
+      setTests(response.data)
+    })
+    promise.catch((error) => {
+      console.log(error)
+    })
   };
 
   return (
     <div>
       {instructors.map((instructor) => (
-        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <Accordion expanded={expanded === instructor.id} onChange={handleChange(instructor.id)}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
@@ -59,9 +56,12 @@ export default function TestsByInstructors() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            {tests.filter((test) => test.disciplineId === instructor.id)}
-          </Typography>
+            {tests.map((test) => (
+                <Typography>
+                    {test.name}
+                </Typography>
+            ))}
+          
         </AccordionDetails>
       </Accordion>)
       )}
